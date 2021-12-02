@@ -125,11 +125,11 @@ public class P3_EasyOpenCVExample extends LinearOpMode
         /*
          * The core values which define the location and size of the sample regions
          */
-        static final Point REGION1_TOPLEFT_ANCHOR_POINT = new Point(40,90);
-        static final Point REGION2_TOPLEFT_ANCHOR_POINT = new Point(181,98);
+        static final Point REGION1_TOPLEFT_ANCHOR_POINT = new Point(50,100);
+        static final Point REGION2_TOPLEFT_ANCHOR_POINT = new Point(175,100);
         static final Point REGION3_TOPLEFT_ANCHOR_POINT = new Point(280,100);
-        static final int REGION_WIDTH = 25;
-        static final int REGION_HEIGHT = 25;
+        static final int REGION_WIDTH = 30;
+        static final int REGION_HEIGHT = 30;
 
         /*
          * Points which actually define the sample region rectangles, derived from above values

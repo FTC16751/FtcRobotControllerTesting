@@ -11,6 +11,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
@@ -29,7 +30,22 @@ public class DriverControl2022 extends LinearOpMode {
     double DRIVE_SPEED;
     double L_HYPOTENUSE;
     double R_HYPOTENUSE;
+    DcMotor ShootMotor;
+    double shootPower;
+    DcMotor BillyArm;
+    int armStowPosition;
+    int armLevel1Position;
+    int armLevel2Position;
+    int armLevel3Position;
+    int armPosition;
 
+    static final double COUNTS_PER_MOTOR_REV = 2450;
+    static final double GEAR_REDUCTION = 1.0;
+    static final double COUNTS_PER_GEAR_REV = COUNTS_PER_MOTOR_REV * GEAR_REDUCTION;
+    static final double COUNTS_PER_DEGREE = COUNTS_PER_GEAR_REV/360;
+
+
+    Servo intake;
     //subclass is replacing inherited behavior.
     @Override
 
@@ -50,7 +66,7 @@ public class DriverControl2022 extends LinearOpMode {
         left_rear_motor.setDirection(DcMotor.Direction.REVERSE);
         right_rear_motor.setDirection(DcMotor.Direction.FORWARD);
 
-        //Set brake condition to full stop (also can give DcMotor.ZeroPowerBehavior.FLOAT)
+        //Set brake condition to full stop (allso can give DcMotor.ZeroPowerBehavior.FLOAT)
         left_front_motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         right_front_motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         left_rear_motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -58,6 +74,33 @@ public class DriverControl2022 extends LinearOpMode {
 
         //Set Drive Speed
         DRIVE_SPEED = 1;    //1=Full Speed
+
+        ShootMotor = hardwareMap.get(DcMotor.class, "Shoot");
+        ShootMotor.setDirection(DcMotor.Direction.REVERSE);
+        ShootMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+
+        shootPower = .6;
+
+        //Billy Arm
+        BillyArm = hardwareMap.get(DcMotor.class, "billyarm");
+        BillyArm.setDirection(DcMotor.Direction.REVERSE);
+        int minPosition = 0;
+        int maxPosition = (int)(COUNTS_PER_DEGREE * 270);
+        armStowPosition = (int)(COUNTS_PER_DEGREE * 25);
+        armLevel1Position = (int)(COUNTS_PER_DEGREE * 50);
+        armLevel2Position = (int)(COUNTS_PER_DEGREE * 90);
+        armLevel3Position = (int)(COUNTS_PER_DEGREE * 235);
+
+        intake = hardwareMap.get(Servo.class, "intake");
+
+        telemetry.addData("Status", "Initialized.  Press Play.");
+        telemetry.update();
+
+        BillyArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        BillyArm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        // Send telemetry message to indicate successful Encoder reset
+        telemetry.addData("Arm Position reset: ",  "Starting at %7d", BillyArm.getCurrentPosition());
 
         telemetry.addData("Status", "Initialized.  Press Play.");
         telemetry.update();
@@ -134,6 +177,76 @@ public class DriverControl2022 extends LinearOpMode {
             left_rear_motor.setPower(LEFT_REAR_POWER);
             right_rear_motor.setPower(RIGHT_REAR_POWER);
 
+            //AlexTower
+            if(gamepad2.right_bumper) {
+                ShootMotor.setPower(shootPower);
+            }
+            if(gamepad2.left_bumper) {
+                ShootMotor.setPower(-shootPower);
+            }
+            else {
+                ShootMotor.setPower(0);
+            }
+
+
+            //stow arm
+
+            if(gamepad2.dpad_left && BillyArm.getCurrentPosition() < maxPosition){
+                armPosition = armLevel1Position;
+                BillyArm.setTargetPosition(armPosition);
+                BillyArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                BillyArm.setPower(0.5);
+            }
+            else if(gamepad2.dpad_up && BillyArm.getCurrentPosition() < maxPosition){
+                armPosition = armLevel2Position;
+                BillyArm.setTargetPosition(armPosition);
+                BillyArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                BillyArm.setPower(0.5);
+
+            }
+            else if(gamepad2.dpad_right && BillyArm.getCurrentPosition() < maxPosition){
+                armPosition = armLevel3Position;
+                BillyArm.setTargetPosition(armPosition);
+                BillyArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                BillyArm.setPower(0.5);
+
+            }
+            else if (gamepad2.dpad_down && BillyArm.getCurrentPosition() > minPosition){
+                armPosition = armStowPosition;
+                BillyArm.setTargetPosition(armPosition);
+                BillyArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                BillyArm.setPower(0.5);
+            }
+            else {
+/*                armPosition =(int)(COUNTS_PER_DEGREE * 10);;
+                BillyArm.setTargetPosition(armPosition);
+                BillyArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                BillyArm.setPower(0.5);
+*/
+                armPosition =(int)(COUNTS_PER_DEGREE * 0);;
+                BillyArm.setTargetPosition(armPosition);
+                BillyArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                BillyArm.setPower(0.05);
+            }
+
+            telemetry.addData("Arm Test current position", BillyArm.getCurrentPosition());
+            telemetry.addData("minposition ", minPosition);
+            telemetry.addData("maxposition", maxPosition);
+            // telemetry.update();
+
+            // add code for intake spin
+            double IntakePower = 0;
+            if (gamepad2.y){
+                IntakePower = 1;
+            }
+            else if (gamepad2.a) {
+                IntakePower = -1;
+            }
+            else IntakePower = .5;
+            intake.setPosition(IntakePower);
+            telemetry.addData("Intake Power", IntakePower);
+            telemetry.addData("Intake Position ", intake.getPosition());
+            telemetry.update();
 
         } //end OpModeIsActive
     }  //end runOpMode
