@@ -8,27 +8,15 @@
 package org.firstinspires.ftc.teamcode;
 
 //Bring in TellOp and Linear classes for operations mode
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.robot.Robot;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-
-//Bring in Utility Classes
-import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
-import org.firstinspires.ftc.robotcore.external.Func;
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-import java.util.Locale;
-//import java.util.Math;
-
-//Bring in hardware
-import com.qualcomm.robotcore.hardware.DcMotor;   //for drive motors
-import com.qualcomm.robotcore.hardware.Servo;     //for grip servo
-
-//Bring in gyroscope classes for robot telemetry
-import com.qualcomm.robotcore.hardware.Gyroscope;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
 import org.firstinspires.ftc.robotcore.external.Func;
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -38,11 +26,19 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 
+import java.util.Locale;
+
+//Bring in Utility Classes
+//import java.util.Math;
+//Bring in hardware
+//Bring in gyroscope classes for robot telemetry
+
 
 //Start, name Tele Op Mode for station driving. Class name must be the same as the filename for
 //OnBot Java
+@Disabled
 @Autonomous(name="Auto Mech Mode", group="Linear Opmode")
-public class AutoMechanumTeam16751 extends LinearOpMode
+public class AutoMechanumTeam17651 extends LinearOpMode
 {
     //Declare Variables
 
@@ -112,22 +108,7 @@ public class AutoMechanumTeam16751 extends LinearOpMode
         left_rear_motor.setDirection(DcMotor.Direction.REVERSE);
         right_rear_motor.setDirection(DcMotor.Direction.FORWARD);
 
-        //Initialize Servos and set grip/lift variables
-        lift_servo = hardwareMap.get(Servo.class, "lift_servo");
-        grip_servo = hardwareMap.get(Servo.class, "grip_servo");
-        LIFT_UP = 0.1;
-        LIFT_DOWN = 0.45;
-        LIFT_START = 0.45;
-        LIFT_INCREMENT = 0.01;
-        GRIP_CLOSE = 0.69;       //Close Position
-        GRIP_OPEN = 0.11;       //Open Position (smaller more Open)
-        GRIP_START = 0.69;       //Start Position (Fully closed)
-        GRIP_INCREMENT = 0.01;   //Movement used on button Press
-        SERVO_SLEEP = 50;       //Time needed for servo to move before going to next thing
 
-            //move arm
-            lift_servo.setPosition(LIFT_START);
-            grip_servo.setPosition(GRIP_START);
             
             sleep(2000);
 
