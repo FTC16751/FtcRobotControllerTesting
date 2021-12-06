@@ -5,19 +5,29 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraRotation;
-
+import org.firstinspires.ftc.teamcode.robot.utilities.DeliveryUtil;
+import org.firstinspires.ftc.teamcode.robot.utilities.DriveUtil;
+import org.firstinspires.ftc.teamcode.robot.utilities.IntakeUtil;
+import org.firstinspires.ftc.teamcode.robot.utilities.SpinnerUtil;
 /*
  * This is a simple routine to test drive utility class.
  */
-@Autonomous(name="P3 Vision Auto Test", group="Linear Opmode")
-public class P3_AutoVisionExample extends LinearOpMode {
+@Autonomous(name="P3_BlueSideVision", group="Linear Opmode")
+public class P3_BlueSideVision extends LinearOpMode {
 
+    DriveUtil drive = new DriveUtil();
+    SpinnerUtil duckSpin = new SpinnerUtil();
+    DeliveryUtil belaArm = new DeliveryUtil();
+    IntakeUtil tyraIntake = new IntakeUtil();
     OpenCVUtil vision = new OpenCVUtil();
+
     private OpenCVUtil.SkystoneDeterminationPipeline pipeline;
+    int useArmPosition = 1;
 
     @Override
     public void runOpMode() throws InterruptedException {
         initVision();
+        drive.init(hardwareMap);duckSpin.init(hardwareMap);belaArm.init(hardwareMap);tyraIntake.init(hardwareMap);
 
         waitForStart();
 
@@ -34,17 +44,13 @@ public class P3_AutoVisionExample extends LinearOpMode {
             telemetry.update();
 
             if (duckPosition == "CENTER") {
-                telemetry.addData("What to do", "Put in middle row!");
-                telemetry.update();
+                useArmPosition = 2;
             } else if (duckPosition == "LEFT" ) {
-                telemetry.addData("What to do", "Put in lowest row!");
-                telemetry.update();
+                useArmPosition = 1;
             } else if (duckPosition == "RIGHT") {
-                telemetry.addData("What to do", "Put in highest row!");
-                telemetry.update();
+                useArmPosition = 3;
             } else {
-                telemetry.addData("What to do", "can't find anything, go park instead");
-                telemetry.update();
+                useArmPosition = 0;
             }
 
 
