@@ -12,8 +12,8 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 /*
  * This is a simple routine to test drive utility class.
  */
-@Autonomous(name="P3_BlueSideVision", group="Linear Opmode")
-public class P3_BlueSideVision extends LinearOpMode {
+@Autonomous(name="P3 Blue Vision Duck Park", group="Linear Opmode")
+public class P3_REDSideVisionWithDuck extends LinearOpMode {
 
     DriveUtil drive = new DriveUtil();
     SpinnerUtil duckSpin = new SpinnerUtil();
@@ -61,25 +61,32 @@ public class P3_BlueSideVision extends LinearOpMode {
     public void runAutonomous() {
         /* do the duck stuff */
         drive.driveRobotDistanceForward(20, .5);
-        drive.driveRobotDistanceStrafeRight(100, .4);
+        drive.driveRobotDistanceStrafeLeft(100, .4);
         drive.driveRobotDistanceBackward(2,.2);
-        duckSpin.SpinClockwise(.5);
+        duckSpin.SpinCounterClockwise(.4);
         sleep(3000);
         duckSpin.stopSpinner();
 
         // after duck deliver, drive to the alliance shipping hub
         drive.driveRobotDistanceStrafeRight(150, .7);
-        drive.driveRobotDistanceForward(27,.4);
-
         // raise arm to the correct position
         belaArm.raiseToPosition(useArmPosition, .5);
+
+        drive.driveRobotDistanceForward(27,.4);
+        sleep(500);
 
         //spin the intake to deliver the block
         tyraIntake.setIntake(2);
         sleep(2000);
         tyraIntake.setIntake(0);
+        sleep(500);
 
         //go park somewhere
+        drive.driveRobotDistanceBackward(20, .5);
+        belaArm.raiseToPosition(0, .5);
+        drive.driveRobotDistanceStrafeLeft(150, .5);
+        drive.driveRobotDistanceForward(40,.5);
+
 
     }
     public void initVision() {
