@@ -32,12 +32,12 @@ public class P3_BlueDelivery_DuckWheel extends LinearOpMode {
         P3- Your autonomous drive code would start right here
         ******************************************************/
        drive.driveRobotDistanceForward(20, .5);
-       drive.driveRobotDistanceStrafeRight(100, .5);
-       drive.driveRobotDistanceBackward(4,.2);
+       drive.driveRobotDistanceStrafeRight(100, .4);
+       drive.driveRobotDistanceBackward(2,.2);
        duckSpin.SpinClockwise(.5);
         sleep(3000);
         duckSpin.stopSpinner();
-        drive.driveRobotDistanceForward(45,.5);
+        drive.driveRobotDistanceForward(50,.5);
         /* ****************************************************
         autonomous drive code would end right here
         ******************************************************/

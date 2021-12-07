@@ -89,7 +89,7 @@ public class DriverControl2022 extends LinearOpMode {
         armStowPosition = (int)(COUNTS_PER_DEGREE * 25);
         armLevel1Position = (int)(COUNTS_PER_DEGREE * 50);
         armLevel2Position = (int)(COUNTS_PER_DEGREE * 90);
-        armLevel3Position = (int)(COUNTS_PER_DEGREE * 235);
+        armLevel3Position = (int)(COUNTS_PER_DEGREE * 275);
 
         intake = hardwareMap.get(Servo.class, "intake");
 

@@ -3,12 +3,12 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.openftc.easyopencv.OpenCvCamera;
-import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.firstinspires.ftc.teamcode.robot.utilities.DeliveryUtil;
 import org.firstinspires.ftc.teamcode.robot.utilities.DriveUtil;
 import org.firstinspires.ftc.teamcode.robot.utilities.IntakeUtil;
 import org.firstinspires.ftc.teamcode.robot.utilities.SpinnerUtil;
+import org.openftc.easyopencv.OpenCvCamera;
+import org.openftc.easyopencv.OpenCvCameraRotation;
 /*
  * This is a simple routine to test drive utility class.
  */
@@ -50,13 +50,38 @@ public class P3_BlueSideVision extends LinearOpMode {
             } else if (duckPosition == "RIGHT") {
                 useArmPosition = 3;
             } else {
-                useArmPosition = 0;
-            }
+                //useArmPosition = 0;
 
+            }
+            runAutonomous();
 
         while (!isStopRequested() && opModeIsActive()) ;
     }
 
+    public void runAutonomous() {
+        /* do the duck stuff */
+        drive.driveRobotDistanceForward(20, .5);
+        drive.driveRobotDistanceStrafeRight(100, .4);
+        drive.driveRobotDistanceBackward(2,.2);
+        duckSpin.SpinClockwise(.5);
+        sleep(3000);
+        duckSpin.stopSpinner();
+
+        // after duck deliver, drive to the alliance shipping hub
+        drive.driveRobotDistanceStrafeRight(150, .7);
+        drive.driveRobotDistanceForward(27,.4);
+
+        // raise arm to the correct position
+        belaArm.raiseToPosition(useArmPosition, .5);
+
+        //spin the intake to deliver the block
+        tyraIntake.setIntake(2);
+        sleep(2000);
+        tyraIntake.setIntake(0);
+
+        //go park somewhere
+
+    }
     public void initVision() {
         //necessary for all auto code that uses vision
         vision.init(hardwareMap);
