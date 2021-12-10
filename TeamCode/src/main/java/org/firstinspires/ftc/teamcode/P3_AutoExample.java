@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.robot.utilities.DeliveryUtil;
@@ -14,6 +15,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
  * This is a simple routine to test utility classes.
  */
 @Autonomous(name="P3 Class Test", group="Linear Opmode")
+@Disabled
 public class P3_AutoExample extends LinearOpMode {
 
     DriveUtil drive = new DriveUtil();

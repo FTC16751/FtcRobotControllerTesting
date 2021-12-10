@@ -2,17 +2,16 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import java.lang.Math;
 
 
-@Autonomous(name="Red Park Storage Unit", group="Linear Opmode")
+@Autonomous(name="Park Storage Unit RED", group="Red Autonomous")
 
-public class AutoRedParkStorageUnit extends LinearOpMode {
+public class ParkStorageUnit_RED extends LinearOpMode {
 
     //drive train variables
     private DcMotor left_front_motor;

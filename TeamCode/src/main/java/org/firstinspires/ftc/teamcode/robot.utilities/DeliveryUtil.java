@@ -103,41 +103,6 @@ public class DeliveryUtil {
             BillyArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             BillyArm.setPower(0.5);
         }
-     /*
-        if(positionLevel == '1' && BillyArm.getCurrentPosition() < maxPosition){
-            armPosition = armLevel1Position;
-            getMotorPosition();
-            BillyArm.setTargetPosition(-armPosition);
-            BillyArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            BillyArm.setPower(0.5);
-        }
-        else if(positionLevel == '2' && BillyArm.getCurrentPosition() < maxPosition){
-            armPosition = armLevel2Position;
-            BillyArm.setTargetPosition(armPosition);
-            BillyArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            BillyArm.setPower(0.5);
-
-        }
-        else if(positionLevel == '3' && BillyArm.getCurrentPosition() < maxPosition){
-            armPosition = armLevel3Position;
-            BillyArm.setTargetPosition(armPosition);
-            BillyArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            BillyArm.setPower(0.5);
-
-        }
-        else if (positionLevel == '0' && BillyArm.getCurrentPosition() > minPosition){
-            armPosition = armStowPosition;
-            BillyArm.setTargetPosition(armPosition);
-            BillyArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            BillyArm.setPower(0.5);
-        }
-        else {
-            armPosition =(int)(COUNTS_PER_DEGREE * 90);;
-            BillyArm.setTargetPosition(armPosition);
-            BillyArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            BillyArm.setPower(0.5);
-        }
-*/
 
         return 0;
     }

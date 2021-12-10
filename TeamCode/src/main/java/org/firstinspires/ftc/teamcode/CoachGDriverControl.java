@@ -11,13 +11,13 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name="Driver Control 2022", group="Linear Opmode")
-public class DriverControl2022 extends LinearOpMode {
+@TeleOp(name="Coach G Driver Control", group="Linear Opmode")
+public class CoachGDriverControl extends LinearOpMode {
     //drive train variables
     DcMotor left_front_motor;
     DcMotor right_front_motor;
@@ -119,15 +119,15 @@ public class DriverControl2022 extends LinearOpMode {
             telemetry.update();
 
             //Set driver speed as a percentage of full (normally set to full)
-            if (gamepad1.right_bumper & gamepad1.left_bumper) {
-                DRIVE_SPEED = .25;
-            } else if (gamepad1.left_bumper) {
-                DRIVE_SPEED = .5;
-            } else if (gamepad1.right_bumper) {
-                DRIVE_SPEED = .75;
-            } else {
-                DRIVE_SPEED = .80;
-            }
+  //         if (gamepad1.right_bumper & gamepad1.left_bumper) {
+  //             DRIVE_SPEED = .25;
+  //         } else if (gamepad1.left_bumper) {
+  //             DRIVE_SPEED = .5;
+  //         } else if (gamepad1.right_bumper) {
+  //             DRIVE_SPEED = .75;
+  //         } else {
+  //             DRIVE_SPEED = .80;
+  //         }
 
             /* This enables a tank drive-like arrangement where the left_stick controls the left
             wheels and the right_stick controls the right wheels uses it x/y values and hypotenuse
@@ -178,10 +178,10 @@ public class DriverControl2022 extends LinearOpMode {
             right_rear_motor.setPower(RIGHT_REAR_POWER);
 
             //AlexTower
-            if(gamepad2.right_bumper) {
+            if(gamepad1.right_bumper) {
                 ShootMotor.setPower(shootPower);
             }
-            if(gamepad2.left_bumper) {
+            if(gamepad1.left_bumper) {
                 ShootMotor.setPower(-shootPower);
             }
             else {
@@ -191,27 +191,27 @@ public class DriverControl2022 extends LinearOpMode {
 
             //stow arm
 
-            if(gamepad2.dpad_left && BillyArm.getCurrentPosition() < maxPosition){
+            if(gamepad1.dpad_left && BillyArm.getCurrentPosition() < maxPosition){
                 armPosition = armLevel1Position;
                 BillyArm.setTargetPosition(armPosition);
                 BillyArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 BillyArm.setPower(0.5);
             }
-            else if(gamepad2.dpad_up && BillyArm.getCurrentPosition() < maxPosition){
+            else if(gamepad1.dpad_up && BillyArm.getCurrentPosition() < maxPosition){
                 armPosition = armLevel2Position;
                 BillyArm.setTargetPosition(armPosition);
                 BillyArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 BillyArm.setPower(0.5);
 
             }
-            else if(gamepad2.dpad_right && BillyArm.getCurrentPosition() < maxPosition){
+            else if(gamepad1.dpad_right && BillyArm.getCurrentPosition() < maxPosition){
                 armPosition = armLevel3Position;
                 BillyArm.setTargetPosition(armPosition);
                 BillyArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 BillyArm.setPower(0.5);
 
             }
-            else if (gamepad2.dpad_down && BillyArm.getCurrentPosition() > minPosition){
+            else if (gamepad1.dpad_down && BillyArm.getCurrentPosition() > minPosition){
                 armPosition = armStowPosition;
                 BillyArm.setTargetPosition(armPosition);
                 BillyArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -231,10 +231,10 @@ public class DriverControl2022 extends LinearOpMode {
 
             // add code for intake spin
             double IntakePower = 0;
-            if (gamepad2.y){
+            if (gamepad1.y){
                 IntakePower = 1;
             }
-            else if (gamepad2.a) {
+            else if (gamepad1.a) {
                 IntakePower = -1;
             }
             else IntakePower = .5;

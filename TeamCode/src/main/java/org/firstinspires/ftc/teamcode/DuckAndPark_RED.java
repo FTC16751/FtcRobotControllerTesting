@@ -10,8 +10,8 @@ import org.firstinspires.ftc.teamcode.robot.utilities.SpinnerUtil;
 /*
  * This is a simple routine to test utility classes.
  */
-@Autonomous(name="RedDeliver and Duck Wheel", group="Linear Opmode")
-public class P3_RedDelivery_DuckWheel extends LinearOpMode {
+@Autonomous(name="Duck Wheel and Park RED", group="Red Autonomous")
+public class DuckAndPark_RED extends LinearOpMode {
 
     DriveUtil drive = new DriveUtil();
     SpinnerUtil duckSpin = new SpinnerUtil();
@@ -38,6 +38,7 @@ public class P3_RedDelivery_DuckWheel extends LinearOpMode {
         sleep(3000);
         duckSpin.stopSpinner();
         drive.driveRobotDistanceForward(50,.5);
+        drive.driveRobotDistanceStrafeRight(5,.5);
         /* ****************************************************
         autonomous drive code would end right here
         ******************************************************/

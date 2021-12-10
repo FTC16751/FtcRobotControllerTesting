@@ -12,8 +12,8 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 /*
  * This is a simple routine to test drive utility class.
  */
-@Autonomous(name="P3 Red Vision Duck Park", group="Linear Opmode")
-public class P3_REDSideVisionWithDuck extends LinearOpMode {
+@Autonomous(name="Vision Duck and Park RED", group="Red Autonomous")
+public class VisionDuckPark_RED extends LinearOpMode {
 
     DriveUtil drive = new DriveUtil();
     SpinnerUtil duckSpin = new SpinnerUtil();

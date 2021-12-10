@@ -12,18 +12,17 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import java.lang.Math;
 
 //Start, name Tele Op Mode for station driving. Class name must be the same as the filename for
 //OnBot Java
-@Autonomous(name="Blue Park Storage Unit", group="Linear Opmode")
+@Autonomous(name="Park in Storage Unit BLUE", group="Blue Autonomous")
 
-public class AutoBlueParkStorageUnit extends LinearOpMode {
+public class ParkStorageUnit_BLUE extends LinearOpMode {
     //drive train variables
     private DcMotor left_front_motor;
     private DcMotor right_front_motor;
