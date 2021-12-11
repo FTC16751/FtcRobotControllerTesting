@@ -9,40 +9,45 @@ import org.firstinspires.ftc.teamcode.robot.utilities.IntakeUtil;
 import org.firstinspires.ftc.teamcode.robot.utilities.SpinnerUtil;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraRotation;
-/*
- * This is a simple routine to test drive utility class.
- */
+
 @Autonomous(name="Vision Duck and Park RED", group="Red Autonomous")
 public class VisionDuckPark_RED extends LinearOpMode {
 
+    //instantiate the sub-systems (drive, spinner, etc)
     DriveUtil drive = new DriveUtil();
     SpinnerUtil duckSpin = new SpinnerUtil();
     DeliveryUtil belaArm = new DeliveryUtil();
     IntakeUtil tyraIntake = new IntakeUtil();
     OpenCVUtil vision = new OpenCVUtil();
 
+    //open the camera opencv image pipeline (analysis)
     private OpenCVUtil.SkystoneDeterminationPipeline pipeline;
-    int useArmPosition = 1;
+
+    //default the arm position
+    int useArmPosition = 0;
 
     @Override
     public void runOpMode() throws InterruptedException {
+        //initialize the camera
         initVision();
+
+        //initialize the hardware mapping
         drive.init(hardwareMap);duckSpin.init(hardwareMap);belaArm.init(hardwareMap);tyraIntake.init(hardwareMap);
 
         waitForStart();
 
         if (isStopRequested()) return;
 
-            telemetry.addData("Analysis", pipeline.getAnalysis());
-            telemetry.update();
-
             // Don't burn CPU cycles busy-looping in this sample
             sleep(50);
 
+            //Display what position camera saw the duck/tse on the barcode
             String duckPosition = String.valueOf(pipeline.getAnalysis());
-            telemetry.addData("String", duckPosition);
+            telemetry.addData("Analysis", pipeline.getAnalysis());
+            telemetry.addData("Duck Position", duckPosition);
             telemetry.update();
 
+        //depending on which barcode the duck/tse was found, set the right arm position height for delivery
             if (duckPosition == "CENTER") {
                 useArmPosition = 2;
             } else if (duckPosition == "LEFT" ) {
@@ -50,18 +55,20 @@ public class VisionDuckPark_RED extends LinearOpMode {
             } else if (duckPosition == "RIGHT") {
                 useArmPosition = 3;
             } else {
-                //useArmPosition = 0;
-
+                useArmPosition = 0;
             }
-            runAutonomous();
+
+        //now go run the autonomous method to move the robot
+        runAutonomous();
 
         while (!isStopRequested() && opModeIsActive()) ;
     }
 
     public void runAutonomous() {
+
         /* do the duck stuff */
         drive.driveRobotDistanceForward(20, .5);
-        drive.driveRobotDistanceStrafeLeft(100, .4);
+        drive.driveRobotDistanceStrafeLeft(85, .4);
         drive.driveRobotDistanceBackward(2,.2);
         duckSpin.SpinCounterClockwise(.4);
         sleep(3000);
@@ -86,8 +93,6 @@ public class VisionDuckPark_RED extends LinearOpMode {
         belaArm.raiseToPosition(0, .5);
         drive.driveRobotDistanceStrafeLeft(150, .5);
         drive.driveRobotDistanceForward(40,.5);
-
-
     }
     public void initVision() {
         //necessary for all auto code that uses vision

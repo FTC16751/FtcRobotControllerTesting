@@ -16,66 +16,80 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 @Autonomous(name="Red Alliance delivery and Park in the warehouse", group="Red Autonomous")
 public class VisionFreightDeliveryParkInWarehouse_RED extends LinearOpMode {
 
+    //instantiate the sub-systems (drive, spinner, etc)
     DriveUtil drive = new DriveUtil();
     SpinnerUtil duckSpin = new SpinnerUtil();
     DeliveryUtil belaArm = new DeliveryUtil();
     IntakeUtil tyraIntake = new IntakeUtil();
     OpenCVUtil vision = new OpenCVUtil();
 
+    //open the camera opencv image pipeline (analysis)
     private OpenCVUtil.SkystoneDeterminationPipeline pipeline;
-    int useArmPosition = 1;
+
+    //default the arm position
+    int useArmPosition = 0;
 
     @Override
     public void runOpMode() throws InterruptedException {
+        //initialize the camera
         initVision();
+
+        //initialize the hardware mapping
         drive.init(hardwareMap);duckSpin.init(hardwareMap);belaArm.init(hardwareMap);tyraIntake.init(hardwareMap);
 
         waitForStart();
 
         if (isStopRequested()) return;
 
-            telemetry.addData("Analysis", pipeline.getAnalysis());
-            telemetry.update();
+        // Don't burn CPU cycles busy-looping in this sample
+        sleep(50);
 
-            // Don't burn CPU cycles busy-looping in this sample
-            sleep(50);
+        //Display what position camera saw the duck/tse on the barcode
+        String duckPosition = String.valueOf(pipeline.getAnalysis());
+        telemetry.addData("Analysis", pipeline.getAnalysis());
+        telemetry.addData("Duck Position", duckPosition);
+        telemetry.update();
 
-            String duckPosition = String.valueOf(pipeline.getAnalysis());
-            telemetry.addData("String", duckPosition);
-            telemetry.update();
+        //depending on which barcode the duck/tse was found, set the right arm position height for delivery
+        if (duckPosition == "CENTER") {
+            useArmPosition = 2;
+        } else if (duckPosition == "LEFT" ) {
+            useArmPosition = 1;
+        } else if (duckPosition == "RIGHT") {
+            useArmPosition = 3;
+        } else {
+            useArmPosition = 0;
+        }
 
-            if (duckPosition == "CENTER") {
-                useArmPosition = 2;
-            } else if (duckPosition == "LEFT" ) {
-                useArmPosition = 1;
-            } else if (duckPosition == "RIGHT") {
-                useArmPosition = 3;
-            } else {
-                //useArmPosition = 0;
-
-            }
-            runAutonomous();
+        //now go run the autonomous method to move the robot
+        runAutonomous();
 
         while (!isStopRequested() && opModeIsActive()) ;
     }
 
     public void runAutonomous() {
+
+        //go drive toward the alliance shipping hub
         drive.driveRobotDistanceStrafeLeft(80,0.5);
-//raise arm to correct position
+        //raise arm to correct position
         belaArm.raiseToPosition(useArmPosition, 0.5);
+
+        //drive up to the hub...carefully
         drive.driveRobotDistanceForward(48, 0.4);
-        sleep(500);
+        sleep(200);
+
         //spin the intake to deliver the block
         tyraIntake.setIntake(2);
         sleep(2000);
         tyraIntake.setIntake(0);
         sleep(500);
-//go park in warehous
+
+        //go park in warehouse
         drive.driveRobotDistanceBackward(10, .4);
         drive.rotateRight90Degrees();
         belaArm.raiseToPosition(0, 0.5);
         drive.driveRobotDistanceStrafeRight(48,.4);
-        drive.driveRobotDistanceForward(130, 0.5);
+        drive.driveRobotDistanceForward(150, 0.5);
 
 
     }

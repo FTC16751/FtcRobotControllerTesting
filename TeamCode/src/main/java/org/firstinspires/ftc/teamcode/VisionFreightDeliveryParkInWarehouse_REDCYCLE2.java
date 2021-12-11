@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.robot.utilities.DeliveryUtil;
@@ -13,7 +14,9 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 /*
  * This is a simple routine to test drive utility class.
  */
+
 @Autonomous(name="Red delivery, cycle try and Park in the warehouse", group="Red Autonomous")
+@Disabled
 public class VisionFreightDeliveryParkInWarehouse_REDCYCLE2 extends LinearOpMode {
 
     DriveUtil drive = new DriveUtil();

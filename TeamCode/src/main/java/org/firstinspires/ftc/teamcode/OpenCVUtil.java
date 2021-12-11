@@ -78,8 +78,8 @@ public class OpenCVUtil
         static final Point REGION1_TOPLEFT_ANCHOR_POINT = new Point(50,100);
         static final Point REGION2_TOPLEFT_ANCHOR_POINT = new Point(175,100);
         static final Point REGION3_TOPLEFT_ANCHOR_POINT = new Point(280,100);
-        static final int REGION_WIDTH = 30;
-        static final int REGION_HEIGHT = 30;
+        static final int REGION_WIDTH = 40;
+        static final int REGION_HEIGHT = 40;
 
         /*
          * Points which actually define the sample region rectangles, derived from above values

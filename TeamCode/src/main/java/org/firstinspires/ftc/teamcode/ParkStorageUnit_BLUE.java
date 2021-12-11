@@ -106,25 +106,12 @@ public class ParkStorageUnit_BLUE extends LinearOpMode {
         //sleep(5000);  //Set a pause to start to allow other robot to move
         DRIVE_SPEED = .9;   //set drive speed between 0 and 1.0
 
-        //If you want to move on timing:
-        //use driveRobotForward(double targetSpeed); or driveRobotBackward(double targetSpeed);
-        //or driveRobotStrafeRight(double targetSpeed); or driveRobotStrafeLeft(double targetSpeed);
-        //sleep(TimeInMilliseconds); then stopRobot();
-
-        //If you want to move on distance use either of four:
-        //driveRobotDistanceForward(double distanceInCM, double targetSpeed);
-        //driveRobotDistanceBackward(double distanceInCM, double targetSpeed);
-        //driveRobotDistanceStrafeLeft(double distanceInCM, double targetSpeed);
-        //driveRobotDistanceStrafeRight(double distanceInCM, double targetSpeed);
-
         //driveRobotDistanceForward(20,DRIVE_SPEED);
         driveRobotDistanceStrafeRight(78, .5);
         driveRobotDistanceBackward(114,.5);
         //driveRobotStrafeRight(.5);
         //sleep(500);
         stopRobot();
-
-
     } //end run opmode
 
     /***

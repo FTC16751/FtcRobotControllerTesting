@@ -16,34 +16,45 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 @Autonomous(name="Vision Duck and Park BLUE", group="Blue Autonomous")
 public class VisionDuckPark_BLUE extends LinearOpMode {
 
+    //instantiate the sub-systems (drive, spinner, etc)
     DriveUtil drive = new DriveUtil();
     SpinnerUtil duckSpin = new SpinnerUtil();
     DeliveryUtil belaArm = new DeliveryUtil();
     IntakeUtil tyraIntake = new IntakeUtil();
     OpenCVUtil vision = new OpenCVUtil();
 
+    //open the camera opencv image pipeline (analysis)
     private OpenCVUtil.SkystoneDeterminationPipeline pipeline;
-    int useArmPosition = 1;
+
+    //default the arm position
+    int useArmPosition = 0;
 
     @Override
     public void runOpMode() throws InterruptedException {
+
+        //initialize the camera
         initVision();
+
+        //initialize the hardware mapping
         drive.init(hardwareMap);duckSpin.init(hardwareMap);belaArm.init(hardwareMap);tyraIntake.init(hardwareMap);
+
+        //wait a few seconds for the robot and camera to initialize
+        sleep(2000);
 
         waitForStart();
 
         if (isStopRequested()) return;
 
-            telemetry.addData("Analysis", pipeline.getAnalysis());
-            telemetry.update();
-
             // Don't burn CPU cycles busy-looping in this sample
             sleep(50);
 
+            //Display what position camera saw the duck/tse on the barcode
             String duckPosition = String.valueOf(pipeline.getAnalysis());
-            telemetry.addData("String", duckPosition);
+            telemetry.addData("Analysis", pipeline.getAnalysis());
+            telemetry.addData("Duck Position", duckPosition);
             telemetry.update();
 
+            //depending on which barcode the duck/tse was found, set the right arm position height for delivery
             if (duckPosition == "CENTER") {
                 useArmPosition = 2;
             } else if (duckPosition == "LEFT" ) {
@@ -51,61 +62,39 @@ public class VisionDuckPark_BLUE extends LinearOpMode {
             } else if (duckPosition == "RIGHT") {
                 useArmPosition = 3;
             } else {
-                //useArmPosition = 0;
-
+                useArmPosition = 0;
             }
+
+            //now go run the autonomous method to move the robot
             runAutonomous();
 
         while (!isStopRequested() && opModeIsActive()) ;
     }
 
     public void runAutonomous() {
-        /* do the duck stuff */
- //      drive.driveRobotDistanceForward(20, .5);
- //      drive.driveRobotDistanceStrafeLeft(100, .4);
- //      drive.driveRobotDistanceBackward(2,.2);
- //      duckSpin.SpinCounterClockwise(.4);
- //      sleep(3000);
- //      duckSpin.stopSpinner();
- //
- //      // after duck deliver, drive to the alliance shipping hub
- //      drive.driveRobotDistanceStrafeRight(150, .7);
- //      // raise arm to the correct position
- //      belaArm.raiseToPosition(useArmPosition, .5);
- //
- //      drive.driveRobotDistanceForward(27,.4);
- //      sleep(500);
- //
- //      //spin the intake to deliver the block
- //      tyraIntake.setIntake(2);
- //      sleep(2000);
- //      tyraIntake.setIntake(0);
- //      sleep(500);
- //
- //      //go park somewhere
- //      drive.driveRobotDistanceBackward(20, .5);
- //      belaArm.raiseToPosition(0, .5);
- //      drive.driveRobotDistanceStrafeLeft(150, .5);
- //      drive.driveRobotDistanceForward(40,.5);
 
+        /* do the duck stuff */
         drive.driveRobotDistanceForward(20, .50);
-        drive.driveRobotDistanceStrafeRight(100,0.4);
+        drive.driveRobotDistanceStrafeRight(85,0.4);
         drive.driveRobotDistanceBackward(2, .2);
         duckSpin.SpinCounterClockwise(.4);
         sleep(3000);
         duckSpin.stopSpinner();
-//after duck delivery drive to alliance shipping hub
+
+        //after duck delivery drive to alliance shipping hub
         drive.driveRobotDistanceStrafeLeft(150, .7);
-//raise arm to correct position
+            //raise arm to correct position
         belaArm.raiseToPosition(useArmPosition, 0.5);
         drive.driveRobotDistanceForward(27, 0.4);
         sleep(500);
+
         //spin the intake to deliver the block
         tyraIntake.setIntake(2);
         sleep(2000);
         tyraIntake.setIntake(0);
         sleep(500);
-//go park in storage depo
+
+        //go park in storage depot
         drive.driveRobotDistanceBackward(20, .5);
         belaArm.raiseToPosition(0, 0.5);
         drive.driveRobotDistanceStrafeRight(150, 0.5);
