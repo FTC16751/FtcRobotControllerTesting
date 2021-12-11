@@ -70,7 +70,7 @@ public class VisionFreightDeliveryParkInWarehouse_RED extends LinearOpMode {
     public void runAutonomous() {
 
         //go drive toward the alliance shipping hub
-        drive.driveRobotDistanceStrafeLeft(80,0.5);
+        drive.driveRobotDistanceStrafeLeft(75,0.5);
         //raise arm to correct position
         belaArm.raiseToPosition(useArmPosition, 0.5);
 
@@ -88,7 +88,7 @@ public class VisionFreightDeliveryParkInWarehouse_RED extends LinearOpMode {
         drive.driveRobotDistanceBackward(10, .4);
         drive.rotateRight90Degrees();
         belaArm.raiseToPosition(0, 0.5);
-        drive.driveRobotDistanceStrafeRight(48,.4);
+        drive.driveRobotDistanceStrafeRight(50,.4);
         drive.driveRobotDistanceForward(150, 0.5);
 
 

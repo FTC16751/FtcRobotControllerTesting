@@ -74,10 +74,11 @@ public class VisionFreightDeliveryParkInWarehouse_BLUE extends LinearOpMode {
 
         //raise arm to correct position
         belaArm.raiseToPosition(useArmPosition, 0.5);
+        sleep(1000);
 
         //drive up to the hub...carefully
         drive.driveRobotDistanceForward(48, 0.4);
-        sleep(200);
+
 
         //spin the intake to deliver the block
         tyraIntake.setIntake(2);

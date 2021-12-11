@@ -77,7 +77,7 @@ public class VisionDuckPark_BLUE extends LinearOpMode {
         drive.driveRobotDistanceForward(20, .50);
         drive.driveRobotDistanceStrafeRight(85,0.4);
         drive.driveRobotDistanceBackward(2, .2);
-        duckSpin.SpinCounterClockwise(.4);
+        duckSpin.SpinClockwise(.4);
         sleep(3000);
         duckSpin.stopSpinner();
 
@@ -85,8 +85,9 @@ public class VisionDuckPark_BLUE extends LinearOpMode {
         drive.driveRobotDistanceStrafeLeft(150, .7);
             //raise arm to correct position
         belaArm.raiseToPosition(useArmPosition, 0.5);
-        drive.driveRobotDistanceForward(27, 0.4);
-        sleep(500);
+        sleep(1000);
+        drive.driveRobotDistanceForward(20, 0.4);
+
 
         //spin the intake to deliver the block
         tyraIntake.setIntake(2);
