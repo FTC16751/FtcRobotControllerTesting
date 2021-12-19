@@ -10,11 +10,15 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
+
+import org.firstinspires.ftc.teamcode.robot.utilities.DriveUtil;
+import org.firstinspires.ftc.teamcode.robot.utilities.RobotUtil;
 
 @TeleOp(name="Driver Control 2022", group="Linear Opmode")
 public class DriverControl2022 extends LinearOpMode {
@@ -46,6 +50,9 @@ public class DriverControl2022 extends LinearOpMode {
 
 
     Servo intake;
+
+    RevBlinkinLedDriver lights;
+    int temp = 1;
     //subclass is replacing inherited behavior.
     @Override
 
@@ -105,9 +112,12 @@ public class DriverControl2022 extends LinearOpMode {
         telemetry.addData("Status", "Initialized.  Press Play.");
         telemetry.update();
 
+        lights = hardwareMap.get(RevBlinkinLedDriver.class, "lights");
+        lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.VIOLET);
+
+
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-
         /***************************************************************
          * Game Execution Area
          * Runs continous until "STOP" pressed on Driver Station
@@ -243,6 +253,29 @@ public class DriverControl2022 extends LinearOpMode {
             telemetry.addData("Intake Position ", intake.getPosition());
             telemetry.update();
 
+            if(temp == 1){
+                resetStartTime();
+                temp = 2;
+            }
+
+            if (time < 85) {
+                lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.VIOLET);
+            }
+            else if (time >= 85 && time <= 90) {
+                lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.HEARTBEAT_BLUE);
+            }
+            else if (time > 90 && time < 110) {
+                lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLUE_VIOLET);
+            }
+            else if (time >= 110 && time <= 120) {
+                lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.HEARTBEAT_RED);
+            }
+            //from 91seconds to 94 seconds
+            //(time > 85 && time <= 120)
+            else
+                lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.VIOLET);
         } //end OpModeIsActive
+        lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.STROBE_BLUE);
     }  //end runOpMode
+
 } //end program

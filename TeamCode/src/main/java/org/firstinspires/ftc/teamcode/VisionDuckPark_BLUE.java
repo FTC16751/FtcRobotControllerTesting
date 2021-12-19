@@ -74,19 +74,21 @@ public class VisionDuckPark_BLUE extends LinearOpMode {
     public void runAutonomous() {
 
         /* do the duck stuff */
-        drive.driveRobotDistanceForward(20, .50);
-        drive.driveRobotDistanceStrafeRight(85,0.4);
-        drive.driveRobotDistanceBackward(2, .2);
+        drive.driveRobotDistanceForward(25, .50);
+        drive.driveRobotDistanceStrafeRight(55,0.4);
+        drive.rotateLeft45Degrees();
+        drive.driveRobotDistanceBackward(17, .2);
         duckSpin.SpinClockwise(.4);
         sleep(3000);
         duckSpin.stopSpinner();
+        drive.rotateRight45Degrees();
 
         //after duck delivery drive to alliance shipping hub
-        drive.driveRobotDistanceStrafeLeft(150, .7);
+        drive.driveRobotDistanceStrafeLeft(140, .7);
             //raise arm to correct position
         belaArm.raiseToPosition(useArmPosition, 0.5);
         sleep(1000);
-        drive.driveRobotDistanceForward(20, 0.4);
+        drive.driveRobotDistanceForward(35, 0.4);
 
 
         //spin the intake to deliver the block
@@ -99,7 +101,7 @@ public class VisionDuckPark_BLUE extends LinearOpMode {
         drive.driveRobotDistanceBackward(20, .5);
         belaArm.raiseToPosition(0, 0.5);
         drive.driveRobotDistanceStrafeRight(150, 0.5);
-        drive.driveRobotDistanceForward(40, .5);
+        drive.driveRobotDistanceForward(31, .5);
 
     }
     public void initVision() {

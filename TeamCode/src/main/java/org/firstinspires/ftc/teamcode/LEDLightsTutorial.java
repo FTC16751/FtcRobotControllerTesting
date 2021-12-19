@@ -10,12 +10,11 @@ import org.firstinspires.ftc.teamcode.robot.utilities.DriveUtil;
 public class LEDLightsTutorial extends OpMode {
 
     RevBlinkinLedDriver lights;
-    DriveUtil drive = new DriveUtil();
     int temp = 1;
 
     public void init(){
         lights = hardwareMap.get(RevBlinkinLedDriver.class, "lights");
-        lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLUE_VIOLET);
+        lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.HEARTBEAT_RED);
     }
 
     public void loop(){
@@ -23,8 +22,8 @@ public class LEDLightsTutorial extends OpMode {
             resetStartTime();
             temp = 2;
         }
-        if(time >= 90){
-            lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.HEARTBEAT_RED);
+        if(time >= 10){
+            lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.STROBE_GOLD);
         } else {
             lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.VIOLET);
         }

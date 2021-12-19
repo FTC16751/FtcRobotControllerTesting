@@ -31,12 +31,14 @@ public class DuckAndPark_RED extends LinearOpMode {
         /* ****************************************************
         P3- Your autonomous drive code would start right here
         ******************************************************/
-       drive.driveRobotDistanceForward(20, .5);
-       drive.driveRobotDistanceStrafeLeft(85, .4);
-       drive.driveRobotDistanceBackward(2,.2);
+       drive.driveRobotDistanceForward(25, .5);
+       drive.driveRobotDistanceStrafeLeft(55, .4);
+       drive.rotateRight45Degrees();
+       drive.driveRobotDistanceBackward(17,.2);
        duckSpin.SpinCounterClockwise(.4);
         sleep(3000);
         duckSpin.stopSpinner();
+        drive.rotateLeft45Degrees();
         drive.driveRobotDistanceForward(50,.5);
         drive.driveRobotDistanceStrafeRight(5,.5);
         /* ****************************************************

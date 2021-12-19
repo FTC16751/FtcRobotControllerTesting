@@ -67,19 +67,21 @@ public class VisionDuckPark_RED extends LinearOpMode {
     public void runAutonomous() {
 
         /* do the duck stuff */
-        drive.driveRobotDistanceForward(20, .5);
-        drive.driveRobotDistanceStrafeLeft(85, .4);
-        drive.driveRobotDistanceBackward(2,.2);
+        drive.driveRobotDistanceForward(25, .5);
+        drive.driveRobotDistanceStrafeLeft(55, .4);
+        drive.rotateRight45Degrees();
+        drive.driveRobotDistanceBackward(17,.2);
         duckSpin.SpinCounterClockwise(.4);
         sleep( 3000);
         duckSpin.stopSpinner();
+        drive.rotateLeft45Degrees();
 
         // after duck deliver, drive to the alliance shipping hub
-        drive.driveRobotDistanceStrafeRight(150, .7);
+        drive.driveRobotDistanceStrafeRight(140, .7);
         // raise arm to the correct position
         belaArm.raiseToPosition(useArmPosition, .5);
 
-        drive.driveRobotDistanceForward(20,.4);
+        drive.driveRobotDistanceForward(35,.4);
         sleep(500);
 
         //spin the intake to deliver the block
@@ -92,7 +94,7 @@ public class VisionDuckPark_RED extends LinearOpMode {
         drive.driveRobotDistanceBackward(20, .5);
         belaArm.raiseToPosition(0, .5);
         drive.driveRobotDistanceStrafeLeft(150, .5);
-        drive.driveRobotDistanceForward(40,.5);
+        drive.driveRobotDistanceForward(35,.5);
     }
     public void initVision() {
         //necessary for all auto code that uses vision
